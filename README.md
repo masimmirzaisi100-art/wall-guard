@@ -6,7 +6,48 @@ Real-time person detection near your wall/fence using YOLOv8.
 
 ---
 
-## Installation
+## Installation Google Cloud Shell — Wall Guard Setup
+git clone https://github.com/masimmirzaisi100-art/wall-guard.git
+cd wall-guard   
+python3 -m venv venv
+source venv/bin/activate   
+pip install --upgrade pip
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+pip install ultralytics opencv-python-headless numpy pyyaml   
+
+python -c "from ultralytics import YOLO; print('OK')"   
+
+wget -q https://ultralytics.com/images/bus.jpg
+python -c "
+from ultralytics import YOLO
+model = YOLO('yolov8n.pt')
+results = model.predict('bus.jpg', classes=[0], conf=0.5)
+print(f'People detected: {len(results[0].boxes)}')
+"   
+python -c "
+from ultralytics import YOLO
+import cv2
+
+cap = cv2.VideoCapture('rtsp://username:password@camera-ip:554/stream')
+if cap.isOpened():
+    ret, frame = cap.read()
+    if ret:
+        model = YOLO('yolov8n.pt')
+        results = model.predict(frame, classes=[0], conf=0.5)
+        print(f'People: {len(results[0].boxes)}')
+        cv2.imwrite('result.jpg', frame)
+else:
+    print('Camera not accessible')
+cap.release()
+"   
+/home/username/wall-guard/
+├── main.py
+├── config.yaml
+├── requirements.txt
+├── venv/
+├── zones/
+└── logs/   
+
 
 ### Windows
 
