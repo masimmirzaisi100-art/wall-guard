@@ -1,0 +1,26 @@
+# Wall Guard Configuration
+
+# Camera source: 0 = webcam, or IP cam URL like "rtsp://user:pass@192.168.1.100:554/stream"
+camera: 0
+
+# YOLO model: yolov8n.pt (fast), yolov8s.pt (balanced), yolov8m.pt (accurate)
+model: "yolov8n.pt"
+
+# Detection confidence (0-1), lower = more sensitive
+confidence: 0.5
+
+# Alert when this many or more people detected in zone
+alert_threshold: 1
+
+# Alert cooldown in seconds (avoid spam)
+alert_cooldown_sec: 30
+
+# Detection zone (polygon points in image coordinates)
+# ⚠️  APNE CAMERA FEED KE HISAAB SE CHANGE KARO
+# Tip: Run script, 'z' dabao, screenshot dekho, coordinates set karo
+# Default: bottom 40% of frame (typical wall/fence view)
+zone:
+  - [0, 384]
+  - [640, 384]
+  - [640, 480]
+  - [0, 480]   
